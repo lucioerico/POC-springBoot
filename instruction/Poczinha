@@ -1,0 +1,78 @@
+https://start.spring.io/
+
+criar API rest SpringBoot, usando Java 8. Realiza alterações em um banco de dados (memoria - sugestao H.2)
+
+fazer metodos:
+post - para salvar uma pessoa
+delete - para deletar uma pessoa
+get - para buscar pessoa por Id
+get (all) - para buscar todas as pessoas
+put - para alterar uma pessoa
+
+
+estrutura de packages:
+1 controller (com um  metodo para cada)
+1 service (com um  metodo para cada) - considerar logs de inicio, fim e erro (biblioteca slf4j)
+1 repository (com um  metodo para cada)
+
+1 DTO* para Todos (usar biblioteca Lombok)
+1 Model para Todos (usar biblioteca Lombok)
+1 Mapper (usar biblioteca mapStruct)
+1 custom exception
+1 exceptionHandler
+
+Testes unitarios:
+- usar mockito
+- usar Fixture
+1 teste para cada service (total de 5 testes)
+1 teste para cada controller (total de 5 testes)
+ 
+
+dica valiosa: 
+MapStruc VAI conflitar com lombok, procurar como resolver a mutreta
+
+PessoaDto / PessoaModel
+id - inteiro - nao nulo
+nome - string - nao nulo ou vazio - maximo 30 caracteres
+sobrenome - string -  nao nulo ou vazio - maximo 60 caracteres
+dataNascimento - date - nao nulo
+
+Caso sucesso, retornoar HttpStatus 200 e DtoDeSucesso:
+{
+	mensagem: "sucesso"
+}
+
+Caso erro, disparar custom exception com HttpStatus 500 e DtoDeErro:
+{
+	codigo: "ERR001"
+	mensagem: "Houve um erro ao consultar banco de dados"
+}
+
+No dto, deve-se fazer as validações usando javax.validation
+
+#Dados para teste
+
+#Inserir
+
+{
+    "dataNascimento": "0409194",
+    "nome": "Jimmy",
+    "sobrenome": "Page"
+}
+
+#atualizar
+
+ {
+        "nome": "Lucio",
+        "sobrenome": "Moriyama",
+        "dataNascimento": "09121985"
+    },
+
+
+    pegar codigo
+
+            try{
+                repository.deleteById(id);
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }
